@@ -2,6 +2,8 @@ package DataAccess;
 
 import Business.IEntity;
 
+import java.math.BigDecimal;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -18,6 +20,10 @@ public interface IProvider
     ArrayList FetchAll(String sql);
     IEntity Fetch(String sql, int id);
     ArrayList FetchWhere(String sql, String val);
+    ArrayList FetchWhere(String sql, int val);
+    ArrayList FetchWhere(String sql, boolean val);
+    ArrayList FetchWhere(String sql, Date val);
+    ArrayList FetchWhere(String sql, BigDecimal val);
     boolean Insert(String sql, IEntity entity);
     boolean Update(String sql, IEntity newEntity, IEntity oldEntity);
 }

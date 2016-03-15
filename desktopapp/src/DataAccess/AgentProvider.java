@@ -5,11 +5,13 @@ import Business.IEntity;
 import com.sun.deploy.util.ArrayUtil;
 import com.sun.deploy.util.StringUtils;
 
+import java.math.BigDecimal;
 import java.sql.Array;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -94,8 +96,39 @@ public class AgentProvider extends EntityProvider
         return (Agent) provider.Fetch(sql, id);
     }
 
+    //GET WHERE OVERLOADS///////////////////////////////////////////////////////////////////////////////
     public static ArrayList GetWhere(String col, String val )
     {
+        String sql = prepWhere(col);
+        return provider.FetchWhere(sql, val);
+    }
+
+    public static ArrayList GetWhere(String col, int val )
+    {
+        String sql = prepWhere(col);
+        return provider.FetchWhere(sql, val);
+    }
+
+    public static ArrayList GetWhere(String col, boolean val )
+    {
+        String sql = prepWhere(col);
+        return provider.FetchWhere(sql, val);
+    }
+
+    public static ArrayList GetWhere(String col, java.sql.Date val )
+    {
+        String sql = prepWhere(col);
+        return provider.FetchWhere(sql, val);
+    }
+
+    public static ArrayList GetWhere(String col, BigDecimal val )
+    {
+        String sql = prepWhere(col);
+        return provider.FetchWhere(sql, val);
+    }
+    ////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    private static String prepWhere(String col){
         int i;
         for (i = 0; i < allColumns.length; i++)
         {
@@ -106,9 +139,9 @@ public class AgentProvider extends EntityProvider
         }
         String sql =
                 "SELECT " + String.join(", ", allColumns) + " " +
-                "FROM " + table + " " +
-                "WHERE " + allColumns[i] + "  = ?";
-        return provider.FetchWhere(sql, val);
+                        "FROM " + table + " " +
+                        "WHERE " + allColumns[i] + "  = ?";
+        return sql;
     }
 
     public static boolean Add(Agent agent)

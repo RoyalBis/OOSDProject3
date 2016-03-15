@@ -12,6 +12,8 @@ public class Main
 {
     public static void main(String[] args) throws ClassNotFoundException
     {
+        //GET ALL FUNCTIONS
+        //Call <Entity>Provider.GetAll()
         ArrayList<Agent> agentList = AgentProvider.GetAll();
         for(Agent agent:agentList)
         {
@@ -36,6 +38,8 @@ public class Main
             System.out.println(supplier);
         }
 
+        //GET BY ID FUNCTIONS
+        //Call <Entity>Provider.GetById(int)
         Agent agent = AgentProvider.GetById(1);
         System.out.println(agent);
 
@@ -48,20 +52,30 @@ public class Main
         Business.Supplier supplier = SupplierProvider.GetById(13596);
         System.out.println(supplier);
 
+        //INSERT FUNCTION
+        //Call <Entity>Provider.Add(<Entity>)
         System.out.println(AgentProvider.Add(agent));
 
-        Agent newAgent = new Agent(17,"A","B","C","D","E","F",0,false);
-        System.out.println(AgentProvider.Modify(newAgent,AgentProvider.GetById(17)));
-        System.out.println(EntityProvider.Message);
+        //UPDATE FUNCTION
+        //CALL <Entity>Provider.Modify( <Entity> <-New, <Entity> <-Old )
+        Agent newAgent = new Agent(17,"A","B","C","D","E","F",0,false); //this will be my new entity
+        System.out.println(AgentProvider.Modify(newAgent,AgentProvider.GetById(17))); //THIS IS THE UPDATE CALL IN A PRINT
 
+        //GET WHERE COLUMN = VALUE
         ArrayList<Agent> janets = AgentProvider.GetWhere("AgtFirstName", "Janet");
         for(Agent janet:janets)
         {
             System.out.println(janet);
         }
 
-
-        System.out.println(AgentProvider.GetById(500));
-        System.out.println(EntityProvider.Message);
+        //RETURNING AN ERROR MESSAGE
+        Agent agt = AgentProvider.GetById(500);
+        if (agt == null)
+        {
+            //EX. All Providers hold the same Message value
+            System.out.println(EntityProvider.Message);
+            System.out.println(AgentProvider.Message);
+            System.out.println(ProductProvider.Message);
+        }
     }
 }

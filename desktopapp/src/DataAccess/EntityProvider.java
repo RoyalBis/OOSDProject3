@@ -3,8 +3,10 @@ package DataAccess;
 import Business.IEntity;
 
 import java.lang.reflect.Field;
+import java.math.BigDecimal;
 import java.sql.*;
-import java.util.ArrayList;
+import java.sql.Date;
+import java.util.*;
 
 /**
  * Created by 723403 on 3/9/2016.
@@ -28,24 +30,7 @@ public abstract class EntityProvider implements IProvider
         {
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
-            if (rs.next())
-            {
-                do
-                {
-                    try
-                    {
-                        entityList.add(this.Construct(rs));
-                    } catch (Exception e)
-                    {
-                        ExceptionThrown(e);
-                    }
-                } while (rs.next());
-            }
-            else
-            {
-                Message = "No matching results";
-            }
-            return entityList;
+            BulkQuery(rs);
 
         } catch (SQLException e)
         {
@@ -54,7 +39,7 @@ public abstract class EntityProvider implements IProvider
         {
             ExceptionThrown(e);
         }
-        return null;
+        return entityList;
     }
 
     public IEntity Fetch(String sql, int id)
@@ -90,6 +75,7 @@ public abstract class EntityProvider implements IProvider
         return null;
     }
 
+    //FETCH WHERE///////////////////////////////////////////////////////////////////////////////////////
     public ArrayList FetchWhere(String sql, String val){
         entityList = new ArrayList();
         try (Connection conn = Database.connect())
@@ -97,24 +83,7 @@ public abstract class EntityProvider implements IProvider
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setString(1,val);
             ResultSet rs = stmt.executeQuery();
-            if (rs.next())
-            {
-                do
-                {
-                    try
-                    {
-                        entityList.add(this.Construct(rs));
-                    } catch (Exception e)
-                    {
-                        ExceptionThrown(e);
-                    }
-                } while (rs.next());
-            }
-            else
-            {
-                Message = "No matching results";
-            }
-            return entityList;
+            BulkQuery(rs);
 
         } catch (SQLException e)
         {
@@ -123,8 +92,86 @@ public abstract class EntityProvider implements IProvider
         {
             ExceptionThrown(e);
         }
-        return null;
+        return entityList;
     }
+
+    public ArrayList FetchWhere(String sql, int val){
+        entityList = new ArrayList();
+        try (Connection conn = Database.connect())
+        {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1,val);
+            ResultSet rs = stmt.executeQuery();
+            BulkQuery(rs);
+
+        } catch (SQLException e)
+        {
+            ExceptionThrown(e);
+        } catch (ClassNotFoundException e)
+        {
+            ExceptionThrown(e);
+        }
+        return entityList;
+    }
+
+    public ArrayList FetchWhere(String sql, boolean val){
+        entityList = new ArrayList();
+        try (Connection conn = Database.connect())
+        {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setBoolean(1,val);
+            ResultSet rs = stmt.executeQuery();
+            BulkQuery(rs);
+
+        } catch (SQLException e)
+        {
+            ExceptionThrown(e);
+        } catch (ClassNotFoundException e)
+        {
+            ExceptionThrown(e);
+        }
+        return entityList;
+    }
+
+    public ArrayList FetchWhere(String sql, Date val){
+        entityList = new ArrayList();
+        try (Connection conn = Database.connect())
+        {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setDate(1,val);
+            ResultSet rs = stmt.executeQuery();
+            BulkQuery(rs);
+
+        } catch (SQLException e)
+        {
+            ExceptionThrown(e);
+        } catch (ClassNotFoundException e)
+        {
+            ExceptionThrown(e);
+        }
+        return entityList;
+    }
+
+    public ArrayList FetchWhere(String sql, BigDecimal val){
+        entityList = new ArrayList();
+        try (Connection conn = Database.connect())
+        {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setBigDecimal(1,val);
+            ResultSet rs = stmt.executeQuery();
+            BulkQuery(rs);
+
+        } catch (SQLException e)
+        {
+            ExceptionThrown(e);
+        } catch (ClassNotFoundException e)
+        {
+            ExceptionThrown(e);
+        }
+        return entityList;
+    }
+    ////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
     public boolean Insert(String sql, IEntity entity)
     {
@@ -180,7 +227,27 @@ public abstract class EntityProvider implements IProvider
         return false;
     }
 
-
+    private void BulkQuery(ResultSet rs) throws SQLException
+    {
+        if (rs.next())
+        {
+            do
+            {
+                try
+                {
+                    entityList.add(this.Construct(rs));
+                } catch (Exception e)
+                {
+                    ExceptionThrown(e);
+                }
+            } while (rs.next());
+        }
+        else
+        {
+            Message = "No matching results";
+        }
+        return;
+    }
 
     protected static String repeat(String in, int count){
         String out = "";
