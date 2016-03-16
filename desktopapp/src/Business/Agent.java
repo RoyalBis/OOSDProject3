@@ -120,15 +120,15 @@ public class Agent implements IEntity
     public String toString()
     {
         return "Agent{" +
-                "AgentId=" + AgentId +
-                ", AgtFirstName='" + AgtFirstName + '\'' +
-                ", AgtMiddleInitial='" + AgtMiddleInitial + '\'' +
-                ", AgtLastName='" + AgtLastName + '\'' +
-                ", AgtBusPhone='" + AgtBusPhone + '\'' +
-                ", AgtEmail='" + AgtEmail + '\'' +
-                ", AgtPosition='" + AgtPosition + '\'' +
-                ", AgencyId=" + AgencyId +
-                ", Active=" + Active +
-                '}';
+               "AgentId=" + AgentId +
+               ", AgtFirstName='" + AgtFirstName + '\'' +
+               ", AgtMiddleInitial='" + AgtMiddleInitial + '\'' +
+               ", AgtLastName='" + AgtLastName + '\'' +
+               ", AgtBusPhone='" + AgtBusPhone + '\'' +
+               ", AgtEmail='" + AgtEmail + '\'' +
+               ", AgtPosition='" + AgtPosition + '\'' +
+               ", AgencyId=" + AgencyId +
+               ", Active=" + Active +
+               '}';
     }
 }

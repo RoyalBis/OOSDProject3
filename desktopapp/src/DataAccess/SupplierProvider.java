@@ -142,14 +142,21 @@ public class SupplierProvider extends EntityProvider
     }
 
     @Override
-    public PreparedStatement PrepareInsert(PreparedStatement stmt, IEntity entity)
+    public PreparedStatement PrepareInsert(PreparedStatement stmt, IEntity entity) throws SQLException
     {
-        return null;
+        Supplier supplier = (Supplier)entity;
+        stmt.setString(1, supplier.getSupName());
+        return stmt;
     }
 
     @Override
     public PreparedStatement PrepareUpdate(PreparedStatement stmt, IEntity newEntity, IEntity oldEntity) throws SQLException
     {
-        return null;
+        Supplier newSupplier = (Supplier)newEntity;
+        Supplier oldSupplier = (Supplier)oldEntity;
+        stmt.setString(1, newSupplier.getSupName());
+        stmt.setInt(2, oldSupplier.getSupplierId());
+        stmt.setString(3, oldSupplier.getSupName());
+        return stmt;
     }
 }

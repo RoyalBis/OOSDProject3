@@ -1,6 +1,5 @@
-import Business.Agent;
+import Business.*;
 import Business.Package;
-import Business.Product;
 import DataAccess.*;
 
 import java.util.ArrayList;
@@ -38,6 +37,24 @@ public class Main
             System.out.println(supplier);
         }
 
+        ArrayList<Customer> customerList = CustomerProvider.GetAll();
+        for(Customer customer:customerList)
+        {
+            System.out.println(customer);
+        }
+
+        ArrayList<ProductSupplier> productsupplierList = ProductSupplierProvider.GetAll();
+        for(ProductSupplier productsupplier:productsupplierList)
+        {
+            System.out.println(productsupplier);
+        }
+
+        ArrayList<PackageProductSupplier> ppsList = PkgProdSupProvider.GetAll();
+        for(PackageProductSupplier pps:ppsList)
+        {
+            System.out.println(pps);
+        }
+
         //GET BY ID FUNCTIONS
         //Call <Entity>Provider.GetById(int)
         Agent agent = AgentProvider.GetById(1);
@@ -51,6 +68,16 @@ public class Main
 
         Business.Supplier supplier = SupplierProvider.GetById(13596);
         System.out.println(supplier);
+
+        Customer customer = CustomerProvider.GetById(104);
+        System.out.println(customer);
+
+        ProductSupplier productSupplier = ProductSupplierProvider.GetById(1);
+        System.out.println(productSupplier);
+
+        //CANNOT GET PACKAGE PRODUCT SUPPLIERS BY ID (COMPOUND ID)
+//        PackageProductSupplier productSupplier = PkgProdSupProvider.GetById(1);
+//        System.out.println(productSupplier);
 
         //INSERT FUNCTION
         //Call <Entity>Provider.Add(<Entity>)
@@ -77,5 +104,14 @@ public class Main
             System.out.println(AgentProvider.Message);
             System.out.println(ProductProvider.Message);
         }
+
+        //ADDING PRODUCT SUPPLIERS TO THE PACKAGE
+        //There is probably a way better way to do this
+        Package myPkg = PackageProvider.GetById(1);
+        ArrayList<PackageProductSupplier> myPkgProdSup = PkgProdSupProvider.GetWhere("PackageId",myPkg.getPackageId());
+        myPkg.setProductSuppliers(myPkgProdSup);
+        System.out.println(myPkg);
+
+
     }
 }

@@ -1,6 +1,7 @@
 package Business;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -16,7 +17,7 @@ public class Package implements IEntity
     private String PkgDesc;
     private BigDecimal PkgBasePrice;
     private BigDecimal PkgAgencyCommission;
-    private HashMap<Product, Supplier> ProductSuppliers;
+    private ArrayList<PackageProductSupplier> ProductSuppliers;
 
     public int getPackageId()
     {
@@ -88,12 +89,12 @@ public class Package implements IEntity
         PkgAgencyCommission = pkgAgencyCommission;
     }
 
-    public HashMap<Product, Supplier> getProductSuppliers()
+    public ArrayList<PackageProductSupplier> getProductSuppliers()
     {
         return ProductSuppliers;
     }
 
-    public void setProductSuppliers(HashMap<Product, Supplier> productSuppliers)
+    public void setProductSuppliers(ArrayList<PackageProductSupplier> productSuppliers)
     {
         ProductSuppliers = productSuppliers;
     }

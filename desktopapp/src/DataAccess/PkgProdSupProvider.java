@@ -1,8 +1,9 @@
 package DataAccess;
 
 import Business.IEntity;
-import Business.Package;
+import Business.PackageProductSupplier;
 import Business.Product;
+import Business.ProductSupplier;
 
 import java.math.BigDecimal;
 import java.sql.PreparedStatement;
@@ -11,15 +12,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
- * Created by 723403 on 3/9/2016.
+ * Created by 723403 on 3/15/2016.
  */
-public class ProductProvider extends EntityProvider
+public class PkgProdSupProvider extends EntityProvider
 {
-    public static IProvider provider = new ProductProvider();
+    public static IProvider provider = new PkgProdSupProvider();
 
     //TABLE
-    private static final String table = "Products";
-    //TABLE COLUMNS
+    private static final String table = "Packages_Products_Suppliers";
     //identifying column
     private static final int idColumn = 0;
     //Auto Increment Column
@@ -27,19 +27,14 @@ public class ProductProvider extends EntityProvider
     //All columns
     private static final String[] allColumns =
             {
-                    "ProductId",
-                    "ProdName"
+                    "PackageId",
+                    "ProductSupplierId"
             };
 
     //SQL STATEMENTS
     private static final String getAll =
             "SELECT " + String.join(", ", allColumns) + " " +
             "FROM " + table + " ORDER BY " + allColumns[0];
-
-    private static final String getById =
-            "SELECT " + String.join(", ", allColumns) + " " +
-            "FROM " + table + " " +
-            "WHERE " + allColumns[0] + " = ?";
 
     private static final String getWhere =
             "SELECT " + String.join(", ", allColumns) + " " +
@@ -49,13 +44,15 @@ public class ProductProvider extends EntityProvider
     private static final String insert =
             "INSERT INTO " + table + " " +
             "(" +
-            allColumns[1] + ") " +
-            "Values(" + repeat("?", allColumns.length - 1) + ")";
+                    allColumns[0]  + ", " +
+                    allColumns[1]  +
+            "Values(" + repeat("?", allColumns.length) + ")";
 
     private static final String update =
             "UPDATE " + table + " " +
             "SET " +
-            allColumns[1] + " = ? " +
+                       allColumns[0] + " = ?, " +
+                       allColumns[1] + " = ? "  +
             "WHERE " + allColumns[0] + " = ? " +
             "AND "   + allColumns[1] + " = ?";
 
@@ -64,12 +61,6 @@ public class ProductProvider extends EntityProvider
         String sql = getAll;
         entityList = provider.FetchAll(sql);
         return entityList;
-    }
-
-    public static Product GetById(int id)
-    {
-        String sql = getById;
-        return (Product) provider.Fetch(sql, id);
     }
 
     //GET WHERE OVERLOADS///////////////////////////////////////////////////////////////////////////////
@@ -120,43 +111,45 @@ public class ProductProvider extends EntityProvider
         return sql;
     }
 
-    public static boolean Add(Product product)
+    public static boolean Add(PackageProductSupplier pkgProdSup)
     {
         String sql = insert;
-        return provider.Insert(sql, product);
+        return provider.Insert(sql, pkgProdSup);
     }
 
-    public static boolean Modify(Product newProduct, Product oldProduct)
+    public static boolean Modify(PackageProductSupplier newPkgProdSup, PackageProductSupplier oldPkgProdSup)
     {
         String sql = update;
-        return provider.Update(sql, newProduct, oldProduct);
+        return provider.Update(sql, newPkgProdSup, oldPkgProdSup);
     }
 
     @Override
     public IEntity Construct(ResultSet rs) throws SQLException
     {
-        Product product = new Product();
-        product.setProductId(rs.getInt(1));
-        product.setProdName(rs.getString(2));
-        return product;
+        PackageProductSupplier pkgProdSup = new PackageProductSupplier();
+        pkgProdSup.setPackageId(rs.getInt(1));
+        pkgProdSup.setProductsupplier(ProductSupplierProvider.GetById(rs.getInt(2)));
+        return pkgProdSup;
     }
 
     @Override
     public PreparedStatement PrepareInsert(PreparedStatement stmt, IEntity entity) throws SQLException
     {
-        Product product = (Product)entity;
-        stmt.setString(1, product.getProdName());
+        PackageProductSupplier pkgProdSup = (PackageProductSupplier)entity;
+        stmt.setInt(1, pkgProdSup.getPackageId());
+        stmt.setInt(2, pkgProdSup.getProductsupplier().getProductSupplierId());
         return stmt;
     }
 
     @Override
     public PreparedStatement PrepareUpdate(PreparedStatement stmt, IEntity newEntity, IEntity oldEntity) throws SQLException
     {
-        Product newPkg = (Product)newEntity;
-        Product oldPkg = (Product)oldEntity;
-        stmt.setString(1, newPkg.getProdName());
-        stmt.setInt(2, oldPkg.getProductId());
-        stmt.setString(3, oldPkg.getProdName());
+        PackageProductSupplier newPkgProdSup = (PackageProductSupplier)newEntity;
+        PackageProductSupplier oldPkgProdSup = (PackageProductSupplier)oldEntity;
+        stmt.setInt(1, newPkgProdSup.getPackageId());
+        stmt.setInt(2, newPkgProdSup.getProductsupplier().getProductSupplierId());
+        stmt.setInt(3, oldPkgProdSup.getPackageId());
+        stmt.setInt(4, oldPkgProdSup.getProductsupplier().getProductSupplierId());
         return stmt;
     }
 }
