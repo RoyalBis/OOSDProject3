@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="AnchorPane" prefHeight="650" prefWidth="850" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.PackageViewController">
+   <children>
+             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="700" prefWidth="850">
+               <children>
+                  <TableView fx:id="TableView" layoutX="-1.0" onMouseClicked="#handleTableClick" prefHeight="200.0" prefWidth="600.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="250.0" AnchorPane.topAnchor="0.0">
+                    <columns>
+                      <TableColumn fx:id="ID" prefWidth="28.0" text="ID" />
+                      <TableColumn fx:id="Name" prefWidth="76.0" text="Name" />
+                      <TableColumn fx:id="Start" prefWidth="88.0" text="Start Date" />
+                      <TableColumn fx:id="End" text="End Date" />
+                      <TableColumn fx:id="Description" prefWidth="130.0" text="Description" />
+                      <TableColumn fx:id="BasePrice" prefWidth="85" text="Price" />
+                      <TableColumn fx:id="Commission" prefWidth="95" text="Commission" />
+                    </columns>
+                    <columnResizePolicy>
+                        
+                     </columnResizePolicy>
+                  </TableView>
+                  <TabPane layoutY="198.0" prefHeight="505.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
+                    <tabs>
+                      <Tab text="Edit Existing">
+                        <content>
+                          <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="474.0" prefWidth="600.0">
+                                 <children>
+                                    <TextField fx:id="PkgId" layoutX="122.0" layoutY="15.0" prefHeight="31.0" prefWidth="200.0" />
+                                    <TextField fx:id="PkgName" layoutX="122.0" layoutY="45.0" prefHeight="31.0" prefWidth="200.0" />
+                                    <DatePicker fx:id="PkgStart" layoutX="123.0" layoutY="75.0" prefHeight="31.0" prefWidth="199.0" />
+                                    <DatePicker fx:id="PkgEnd" layoutX="123.0" layoutY="108.0" prefHeight="31.0" prefWidth="199.0" />
+                                    <TextField fx:id="PkgPrice" layoutX="122.0" layoutY="140" prefHeight="31.0" prefWidth="200.0" />
+                                    <TextField fx:id="PkgCommission" layoutX="122.0" layoutY="170" prefHeight="31.0" prefWidth="200.0" />
+                                    <TextArea fx:id="PkgDesc" layoutX="123.0" layoutY="247.0" prefHeight="112.0" prefWidth="402.0" />
+                                    <Label layoutX="14.0" layoutY="15.0" prefHeight="21.0" prefWidth="94.0" text="ID" />
+                                    <Label layoutX="14.0" layoutY="45" prefHeight="21.0" prefWidth="94.0" text="Name" />
+                                    <Label layoutX="14.0" layoutY="75" prefHeight="21.0" prefWidth="94.0" text="Start Date" />
+                                    <Label layoutX="14.0" layoutY="106" prefHeight="21.0" prefWidth="94.0" text="End Date" />
+                                    <Label layoutX="14.0" layoutY="136" prefHeight="21.0" prefWidth="94.0" text="Base Price" />
+                                    <Label layoutX="14.0" layoutY="166" prefHeight="21.0" prefWidth="94.0" text="Commission" />
+                                    <Label layoutX="14.0" layoutY="247.0" prefHeight="21.0" prefWidth="94.0" text="Description" />
+                                    <Button fx:id="Update" layoutX="122.0" layoutY="371.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="200.0" text="Update Package" />
+                                    <TableView fx:id="ProSupTable" layoutX="325.0" layoutY="16.0" prefHeight="186.0" prefWidth="200.0">
+                                      <columns>
+                                        <TableColumn fx:id="Product" prefWidth="90" text="Product" />
+                                        <TableColumn fx:id="Supplier" prefWidth="90.0" text="Supplier" />
+                                      </columns>
+                                    </TableView>
+                                    <Button layoutX="325.0" layoutY="211.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="200.0" text="Remove" />
+                                    
+                                 </children>
+                              </AnchorPane>
+                        </content>
+                      </Tab>
+                      <Tab text="Create New">
+                        <content>
+                          <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="474.0" prefWidth="600.0">
+                                 <children>
+                                    <TextField fx:id="newPkgId" layoutX="122.0" layoutY="15.0" prefHeight="31.0" prefWidth="200.0" />
+                                    <TextField fx:id="newPkgName" layoutX="122.0" layoutY="45.0" prefHeight="31.0" prefWidth="200.0" />
+                                    <DatePicker fx:id="newPkgStart" layoutX="123.0" layoutY="75.0" prefHeight="31.0" prefWidth="199.0" />
+                                    <DatePicker fx:id="newPkgEnd" layoutX="123.0" layoutY="108.0" prefHeight="31.0" prefWidth="199.0" />
+                                    <TextField fx:id="newPkgPrice" layoutX="122.0" layoutY="140" prefHeight="31.0" prefWidth="200.0" />
+                                    <TextField fx:id="newPkgCommission" layoutX="122.0" layoutY="170" prefHeight="31.0" prefWidth="200.0" />
+                                    <TextArea fx:id="newPkgDesc" layoutX="123.0" layoutY="247.0" prefHeight="112.0" prefWidth="402.0" />
+                                    <Label layoutX="14.0" layoutY="15.0" prefHeight="21.0" prefWidth="94.0" text="ID" />
+                                    <Label layoutX="14.0" layoutY="45" prefHeight="21.0" prefWidth="94.0" text="Name" />
+                                    <Label layoutX="14.0" layoutY="75" prefHeight="21.0" prefWidth="94.0" text="Start Date" />
+                                    <Label layoutX="14.0" layoutY="106" prefHeight="21.0" prefWidth="94.0" text="End Date" />
+                                    <Label layoutX="14.0" layoutY="136" prefHeight="21.0" prefWidth="94.0" text="Base Price" />
+                                    <Label layoutX="14.0" layoutY="166" prefHeight="21.0" prefWidth="94.0" text="Commission" />
+                                    <Label layoutX="14.0" layoutY="247.0" prefHeight="21.0" prefWidth="94.0" text="Description" />
+                                    <Button fx:id="Save" layoutX="122.0" layoutY="371.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="200.0" text="Update Package" />
+                                    <TableView fx:id="newProSupTable" layoutX="325.0" layoutY="16.0" prefHeight="186.0" prefWidth="200.0">
+                                      <columns>
+                                        <TableColumn fx:id="newProduct" prefWidth="104.0" text="Product" />
+                                        <TableColumn fx:id="newSupplier" prefWidth="92.0" text="Supplier" />
+                                      </columns>
+                                    </TableView>
+                                    <Button layoutX="325.0" layoutY="211.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="200.0" text="Remove" />
+                                    
+                                 </children>
+                              </AnchorPane>
+                        </content>
+                      </Tab>
+                    </tabs>
+                  </TabPane>
+            <TableView fx:id="SideTable" onMouseClicked="#handleSideViewClick" layoutX="608.0" prefHeight="700.0" prefWidth="244.0">
+              <columns>
+                <TableColumn fx:id="allProduct" prefWidth="117.0" text="Product" />
+                <TableColumn fx:id="allSupplier" prefWidth="126.0" text="Supplier" />
+              </columns>
+            </TableView>
+               </children>      
+            </AnchorPane>
+   </children>
+</AnchorPane>

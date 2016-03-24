@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="BorderPane" prefHeight="700.0" prefWidth="850" fx:controller="Controller.MenuController">
+    <top>
+        <MenuBar fx:id="menuBar" prefHeight="32.0" prefWidth="850" >
+            <menus>
+               <Menu text="Manager">
+                  <items>
+                     <MenuItem text="Agents" onAction="#openAgentView" />
+                     <MenuItem text="Packages" onAction="#openPackageView" />
+                     <SeparatorMenuItem />
+                     <MenuItem text="Exit" onAction="#Terminate" />
+                  </items>
+               </Menu>
+               <Menu text="Statistics">
+                  <items>
+                     <MenuItem text="Bar Graph" />
+                     <MenuItem text="Trend Forecast" />
+                     <MenuItem text="Comparison" />
+                  </items>
+               </Menu>
+               <Menu text="Help">
+                  <items>
+                     <MenuItem disable="true" text="Search" />
+                     <MenuItem text="Online Manual" visible="false" />
+                     <SeparatorMenuItem />
+                     <MenuItem text="About" />
+                  </items>
+               </Menu>
+            </menus>
+        </MenuBar>
+    </top>
+</BorderPane>
